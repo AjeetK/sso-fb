@@ -1,41 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+	</title>
+	<script type="text/javascript" src='hello.js/dist/hello.all.js'></script>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+
+</body>
+</html>
+
+    
+ <?php
+
+session_start();
+
+  ?>
+  <script type="text/javascript">
+  		hello( auth.network ).api( '/me' ).then( function(r){
+				// Inject it into the container
+				var label = document.getElementById( "profile_"+ auth.network );
+				if(!label){
+					label = document.createElement('div');
+					label.id = "profile_"+auth.network;
+					document.getElementById('profile').appendChild(label);
+				}
+				label.innerHTML = '<img src="'+ r.thumbnail +'" /> Hey '+r.name;
+				console.log(r.name);
+			});
+  </script>
 <?php
+  echo $_GET['username'];
 
-$host="localhost"; // Host name
-$username="root"; // Mysql username
-$password="root"; // Mysql password
-$db_name="users_login"; // Database name
-$tbl_name="members"; // Table name
 
-// Connect to server and select databse.
-mysql_connect("$host", "$username", "$password")or die("cannot connect");
-mysql_select_db("$db_name")or die("cannot select DB");
-
-// username and password sent from form
-$myusername=$_POST['myusername'];
-$mypassword=$_POST['mypassword'];
-
-// To protect MySQL injection (more detail about MySQL injection)
-$myusername = stripslashes($myusername);
-$mypassword = stripslashes($mypassword);
-$myusername = mysql_real_escape_string($myusername);
-$mypassword = mysql_real_escape_string($mypassword);
-
-$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-$result=mysql_query($sql);
-
-// Mysql_num_row is counting table row
-$count=mysql_num_rows($result);
-
-// If result matched $myusername and $mypassword, table row must be 1 row
-
-if($count==1){
-
-// Register $myusername, $mypassword and redirect to file "login_success.php"
-session_register("myusername");
-session_register("mypassword");
-header("location:login_success.php");
-}
-else {
-echo "Wrong Username or Password";
-}
 ?>
